@@ -2,11 +2,12 @@
 
 Custom resource state configurations for [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)
 
-[[_TOC_]]
 
 ## OpenPolicyAgent Gatekeeper
 
-Generates metric series based on the status of Constraint objects exposing the following information:
+[Gatekeeper](https://open-policy-agent.github.io/gatekeeper/)
+
+Generates metric series based on the status of constraint objects exposing the following information:
 
 * kube_customresource_gatekeeper_violations_total
 
@@ -17,6 +18,8 @@ Number of total violations against a constraint
 Info about individual violation per constraint
 
 ## Cert-Manager
+
+[Cert-Manager](https://cert-manager.io)
 
 Generates metric series per Certificate:
 
