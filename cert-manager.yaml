@@ -1,0 +1,53 @@
+kind: CustomResourceStateMetrics
+spec:
+  resources:
+    - groupVersionKind:
+        group: "cert-manager.io"
+        kind: "Certificate"
+        version: "v1"
+      labelsFromPath:
+        name: [metadata, name]
+        namespace: [metadata, namespace]
+      metrics:
+        - name: "certificate_valid_not_after"
+          help: "Cert is not valid after this timestamp"
+          each:
+            type: Gauge
+            gauge:
+              path: [status, notAfter]
+        - name: "certificate_valid_not_before"
+          help: "Certificate is not valid before this timestamp"
+          each:
+            type: Gauge
+            gauge:
+              path: [status, notBefore]
+        - name: "certificate_transition_info"
+          help: "Current status of the certificate"
+          each:
+            type: Info
+            info:
+              path: [status, conditions]
+              labelsFromPath:
+                message: [message]
+                reason: [reason]
+                status: [status]
+                type: [type]
+    - groupVersionKind:
+        group: "cert-manager.io"
+        kind: "Issuer"
+        version: "v1"
+      labelsFromPath:
+        name: [metadata, name]
+        namespace: [metadata, namespace]
+      metrics:
+        - name: "issuer_transition_info"
+          help: "Current status of the issuer"
+          each:
+            type: Info
+            info:
+              path: [status, conditions]
+              labelsFromPath:
+                message: [message]
+                reason: [reason]
+                status: [status]
+                type: [type]

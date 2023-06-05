@@ -1,0 +1,26 @@
+kind: CustomResourceStateMetrics
+spec:
+  resources:
+    - groupVersionKind:
+        group: "constraints.gatekeeper.sh"
+        kind: "*"
+        version: "v1beta1"
+      metrics:
+        - name: "gatekeeper_violations_total"
+          help: "Number of violations"
+          each:
+            type: Gauge
+            gauge:
+              path: [status, totalViolations]
+        - name: "gatekeeper_violation_info"
+          help: "Information about the detected violation"
+          each:
+            type: Info
+            info:
+              path: [status, violations]
+              labelsFromPath:
+                enforcement_action: [enforcementAction]
+                violating_kind: [kind]
+                violating_message: [message]
+                violating_name: [name]
+                violating_namespace: [namespace]
