@@ -5,9 +5,14 @@ spec:
         group: "constraints.gatekeeper.sh"
         kind: "*"
         version: "v1beta1"
+      labelsFromPath:
+        name: [metadata, name]
+        namespace: [metadata, namespace]
       metrics:
         - name: "gatekeeper_violations_total"
           help: "Number of violations"
+          labelsFromPath:
+            enforcement_action: [spec, enforcementAction]
           each:
             type: Gauge
             gauge:
